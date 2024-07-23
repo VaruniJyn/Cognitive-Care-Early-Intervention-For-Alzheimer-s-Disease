@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alzheimer Disease Prediction</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: Arial, sans-serif;
+            background-color: black;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            height: 100vh;
+            background: url('human.png') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+        }
+        .header {
+            background-color: grey;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .button {
+            background-color: grey;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .button-white {
+            background-color: white;
+            color: black;
+        }
+        #fileInput {
+            display: none;
+        }
+        .image-preview {
+            margin: 20px 0;
+        }
+        .image-preview img {
+            max-width: 100%;
+            height: auto;
+        }
+        .prediction-result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: yellow;
+        }
+        #uploadPage {
+            display: none;
+        }
+        #uploadPage:target {
+            display: block;
+        }
+        #homePage:target {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="homePage" class="container">
+        <div class="header">
+            Alzheimer Disease Prediction using MRI
+        </div>
+        <p>Alzheimer's disease is hard to predict. A treatment given at an early stage of AD is more effective and it causes fewer minor damages than a treatment done at a later stage.</p>
+        <a href="#uploadPage" class="button">Drop the scan for Detection</a>
+    </div>
+
+    <div id="uploadPage" class="container">
+        <div class="header">
+            Alzheimer Disease Prediction using MRI
+        </div>
+        <p>Drop in the X-ray image to know if disease is there or not!</p>
+        <form id="uploadForm" action="#uploadPage" method="post" enctype="multipart/form-data">
+            <label for="fileInput" class="button button-white">Choose</label>
+            <input type="file" id="fileInput" name="image" accept="image/*" />
+            <div class="image-preview" id="imagePreview"></div>
+            <a href="#resultPage" class="button button-white">Predict</a>
+        </form>
+    </div>
+
+    <div id="resultPage" class="container">
+        <div class="header">
+            Alzheimer Disease Prediction using MRI
+        </div>
+        <p>Prediction Result:</p>
+        <div class="prediction-result" id="result">
+            <!-- Simulating a random result, you can uncomment the one you want to simulate -->
+            <!-- Mild Demented -->
+            <!-- Moderate Demented -->
+            Non Demented
+            <!-- Very Mild Demented -->
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.addEventListener('load', function() {
+                    imagePreview.innerHTML = '<img src="' + this.result + '" alt="Image Preview">';
+                });
+                
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
